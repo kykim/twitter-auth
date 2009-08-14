@@ -1,6 +1,6 @@
 ActiveRecord::Schema.define :version => 0 do
   create_table :twitter_auth_users, :force => true do |t|
-    t.string :twitter_id
+    t.integer :twitter_id, :length => 8
     t.string :login
     
     # OAuth fields

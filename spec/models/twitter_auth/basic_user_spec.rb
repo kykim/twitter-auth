@@ -7,7 +7,7 @@ describe TwitterAuth::BasicUser do
 
   describe '#password=' do
     before do
-      @user = Factory.build(:twitter_basic_user, :twitter_id => '123')
+      @user = Factory.build(:twitter_basic_user, :twitter_id => 123)
     end
 
     it 'should change the value of crypted_password' do
@@ -58,7 +58,7 @@ describe TwitterAuth::BasicUser do
 
   describe '.authenticate' do
     before do
-      @user = Factory.create(:twitter_basic_user, :twitter_id => '123')
+      @user = Factory.create(:twitter_basic_user, :twitter_id => 123)
     end
 
     it 'should make a call to verify_credentials' do
@@ -79,11 +79,11 @@ describe TwitterAuth::BasicUser do
 
   describe '.find_or_create_by_twitter_hash_and_password' do
     before do
-      @user = Factory.create(:twitter_basic_user, :twitter_id => '123')
+      @user = Factory.create(:twitter_basic_user, :twitter_id => 123)
     end
 
     it 'should return the existing user if there is one' do
-      User.identify_or_create_from_twitter_hash_and_password({'id' => '123', 'screen_name' => 'twitterman'},'test').should == @user
+      User.identify_or_create_from_twitter_hash_and_password({'id' => 123, 'screen_name' => 'twitterman'},'test').should == @user
     end
 
     it 'should update the attributes from the hash' do
@@ -91,7 +91,7 @@ describe TwitterAuth::BasicUser do
     end
 
     it 'should update the password from the argument' do
-      User.identify_or_create_from_twitter_hash_and_password({'id' => '123', 'screen_name' => 'twitterman', 'name' => 'New Name'}, 'test2').password.should == 'test2'
+      User.identify_or_create_from_twitter_hash_and_password({'id' => 123, 'screen_name' => 'twitterman', 'name' => 'New Name'}, 'test2').password.should == 'test2'
     end
 
     it 'should create a user if one does not exist' do
@@ -100,7 +100,7 @@ describe TwitterAuth::BasicUser do
 
     it 'should assign the attributes from the hash to a created user' do
       user = User.identify_or_create_from_twitter_hash_and_password({'id' => 124, 'screen_name' => 'dude', 'name' => "Lebowski"}, 'test')
-      user.twitter_id.should == '124'
+      user.twitter_id.should == 124
       user.login.should == 'dude'
       user.name.should == 'Lebowski'
       user.password.should == 'test'
@@ -109,7 +109,7 @@ describe TwitterAuth::BasicUser do
 
   describe '#twitter' do
     before do
-      @user = Factory.create(:twitter_basic_user, :twitter_id => '123')
+      @user = Factory.create(:twitter_basic_user, :twitter_id => 123)
     end
 
     it 'should be an instance of TwitterAuth::Dispatcher::Basic' do
@@ -123,15 +123,15 @@ describe TwitterAuth::BasicUser do
 
   describe 'changing usernames' do
     before do
-      @user = Factory.create(:twitter_basic_user, :twitter_id => '123')
+      @user = Factory.create(:twitter_basic_user, :twitter_id => 123)
     end
 
     it 'should not create a new record when a screen_name has changed' do
-      lambda{User.identify_or_create_from_twitter_hash_and_password({'id' => '123', 'screen_name' => 'dude'},'awesome')}.should_not change(User,:count)
+      lambda{User.identify_or_create_from_twitter_hash_and_password({'id' => 123, 'screen_name' => 'dude'},'awesome')}.should_not change(User,:count)
     end
 
     it 'should update the record with the new screen name' do
-      User.identify_or_create_from_twitter_hash_and_password({'id' => '123', 'screen_name' => 'dude'},'awesome').should == @user.reload
+      User.identify_or_create_from_twitter_hash_and_password({'id' => 123, 'screen_name' => 'dude'},'awesome').should == @user.reload
       @user.login.should == 'dude'
     end
   end

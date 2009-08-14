@@ -41,7 +41,7 @@ module TwitterAuth
       raise ArgumentError, 'Invalid hash: must include id.' unless hash.key?('id')
 
       user = User.new
-      user.twitter_id = hash['id'].to_s
+      user.twitter_id = hash['id'].to_i
       user.login = hash['screen_name']
 
       TWITTER_ATTRIBUTES.each do |att|

@@ -1,7 +1,7 @@
 class TwitterAuthMigration < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-      t.string :twitter_id
+      t.integer :twitter_id, :length => 8
       t.string :login
 <% if options[:oauth] -%>
       t.string :access_token

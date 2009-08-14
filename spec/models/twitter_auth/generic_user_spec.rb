@@ -27,7 +27,7 @@ describe TwitterAuth::GenericUser do
 
   describe '.new_from_twitter_hash' do
     it 'should raise an argument error if the hash does not have a screen_name attribute' do
-      lambda{User.new_from_twitter_hash({'id' => '123'})}.should raise_error(ArgumentError, 'Invalid hash: must include screen_name.')
+      lambda{User.new_from_twitter_hash({'id' => 123})}.should raise_error(ArgumentError, 'Invalid hash: must include screen_name.')
     end
 
     it 'should raise an argument error if the hash does not have an id attribute' do
@@ -35,15 +35,15 @@ describe TwitterAuth::GenericUser do
     end
 
     it 'should return a user' do
-      User.new_from_twitter_hash({'id' => '123', 'screen_name' => 'twitterman'}).should be_a(User)
+      User.new_from_twitter_hash({'id' => 123, 'screen_name' => 'twitterman'}).should be_a(User)
     end
 
     it 'should assign login to the screen_name' do
-      User.new_from_twitter_hash({'id' => '123', 'screen_name' => 'twitterman'}).login.should == 'twitterman'
+      User.new_from_twitter_hash({'id' => 123, 'screen_name' => 'twitterman'}).login.should == 'twitterman'
     end
 
     it 'should assign twitter attributes that are provided' do
-      u = User.new_from_twitter_hash({'id' => '4566', 'screen_name' => 'twitterman', 'name' => 'Twitter Man', 'description' => 'Saving the world for all Tweet kind.'})
+      u = User.new_from_twitter_hash({'id' => 4566, 'screen_name' => 'twitterman', 'name' => 'Twitter Man', 'description' => 'Saving the world for all Tweet kind.'})
       u.name.should == 'Twitter Man'
       u.description.should == 'Saving the world for all Tweet kind.'
     end
